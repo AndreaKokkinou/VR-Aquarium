@@ -9196,9 +9196,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 689dbd8af07de864e80c78a7ac40a1be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  swimForce: 5
+  swimForce: 10000
   drag: 0.98
-  maxSpeed: 3
+  maxSpeed: 100
+  minStrokeVelocity: 0.01
   boundaryCenter: {fileID: 0}
   boundaryRadius: 10
 --- !u!54 &1474043271
@@ -10176,6 +10177,7 @@ MonoBehaviour:
   swimForce: 5
   drag: 2
   maxSpeed: 3
+  minStrokeVelocity: 0.1
   boundaryCenter: {fileID: 0}
   boundaryRadius: 10
 --- !u!1 &1608989662

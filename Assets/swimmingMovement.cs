@@ -2,9 +2,10 @@ using UnityEngine;
 
 public class SwimmingMovement : MonoBehaviour
 {
-    public float swimForce = 5f;
+    public float swimForce = 10000f;
     public float drag = 0.98f;
-    public float maxSpeed = 3f;
+    public float maxSpeed = 100f;
+    public float minStrokeVelocity = 0.01f; // Minimum speed to count as a stroke
 
     private Rigidbody rb;
     private Vector3 lastHandPositionLeft;
@@ -27,15 +28,32 @@ public class SwimmingMovement : MonoBehaviour
 
     void ProcessSwimming()
     {
-        // Use Meta's SDK to get controller positions
+        // Get controller positions
         Vector3 leftHandPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.LTouch);
         Vector3 rightHandPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
 
         // Calculate hand movement velocity
-        Vector3 leftHandVelocity = (lastHandPositionLeft - leftHandPosition) * swimForce;
-        Vector3 rightHandVelocity = (lastHandPositionRight - rightHandPosition) * swimForce;
+        Vector3 leftHandVelocity = lastHandPositionLeft - leftHandPosition;
+        Vector3 rightHandVelocity = lastHandPositionRight - rightHandPosition;
 
-        Vector3 totalForce = leftHandVelocity + rightHandVelocity;
+        // Get player's forward direction
+        Vector3 playerForward = transform.forward;
+
+        // Project velocity onto player's forward direction
+        float leftDot = Vector3.Dot(leftHandVelocity, -playerForward);
+        float rightDot = Vector3.Dot(rightHandVelocity, -playerForward);
+
+        Vector3 totalForce = Vector3.zero;
+
+        // Only apply force if hands are moving backward (negative dot product)
+        if (leftDot < -minStrokeVelocity)
+        {
+            totalForce += leftHandVelocity * swimForce;
+        }
+        if (rightDot < -minStrokeVelocity)
+        {
+            totalForce += rightHandVelocity * swimForce;
+        }
 
         // Apply force to the Rigidbody
         rb.AddForce(totalForce, ForceMode.Acceleration);
@@ -44,7 +62,7 @@ public class SwimmingMovement : MonoBehaviour
         // Apply drag
         rb.linearVelocity *= drag;
 
-        // Store the last position
+        // Store last positions for the next frame
         lastHandPositionLeft = leftHandPosition;
         lastHandPositionRight = rightHandPosition;
     }
