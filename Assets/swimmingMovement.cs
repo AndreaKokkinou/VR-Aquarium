@@ -13,6 +13,8 @@ public class SwimmingMovement : MonoBehaviour
 
     public Transform boundaryCenter;
     public float boundaryRadius = 10f;
+    private float leftDot;
+    private float rightDot;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class SwimmingMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+
         ProcessSwimming();
         ApplyBoundaryConstraints();
     }
@@ -39,9 +42,17 @@ public class SwimmingMovement : MonoBehaviour
         // Get player's forward direction
         Vector3 playerForward = transform.forward;
 
-        // Project velocity onto player's forward direction
-        float leftDot = Vector3.Dot(leftHandVelocity, -playerForward);
-        float rightDot = Vector3.Dot(rightHandVelocity, -playerForward);
+        if (OVRInput.Get(OVRInput.Button.One))
+        {
+            leftDot = Vector3.Dot(leftHandVelocity, playerForward);
+            rightDot = Vector3.Dot(rightHandVelocity, playerForward);
+        }
+
+        else
+        {
+            leftDot = Vector3.Dot(leftHandVelocity, -playerForward);
+            rightDot = Vector3.Dot(rightHandVelocity, -playerForward);
+        }
 
         Vector3 totalForce = Vector3.zero;
 
