@@ -9200,6 +9200,7 @@ MonoBehaviour:
   drag: 0.98
   maxSpeed: 100
   minStrokeVelocity: 0.01
+  ForwardObjectAnchor: {fileID: 16135398}
   boundaryCenter: {fileID: 0}
   boundaryRadius: 10
 --- !u!54 &1474043271
@@ -10178,6 +10179,7 @@ MonoBehaviour:
   drag: 2
   maxSpeed: 3
   minStrokeVelocity: 0.1
+  ForwardObjectAnchor: {fileID: 0}
   boundaryCenter: {fileID: 0}
   boundaryRadius: 10
 --- !u!1 &1608989662

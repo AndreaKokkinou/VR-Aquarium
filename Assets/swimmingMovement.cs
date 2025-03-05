@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class SwimmingMovement : MonoBehaviour
 {
-    public float swimForce = 10000f;
+    public float swimForce = 100f;
     public float drag = 0.98f;
-    public float maxSpeed = 100f;
-    public float minStrokeVelocity = 0.01f; // Minimum speed to count as a stroke
+    public float maxSpeed = 10f;
+    public float minStrokeVelocity = 0.05f; // Minimum speed to count as a stroke
 
     private Rigidbody rb;
     private Vector3 lastHandPositionLeft;
     private Vector3 lastHandPositionRight;
+
+    public GameObject ForwardObjectAnchor;
 
     public Transform boundaryCenter;
     public float boundaryRadius = 10f;
@@ -19,6 +21,7 @@ public class SwimmingMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        print("RigidBody: " + rb);
         rb.useGravity = false;
     }
 
@@ -40,16 +43,19 @@ public class SwimmingMovement : MonoBehaviour
         Vector3 rightHandVelocity = lastHandPositionRight - rightHandPosition;
 
         // Get player's forward direction
-        Vector3 playerForward = transform.forward;
+        Vector3 playerForward = ForwardObjectAnchor.transform.forward;
+        print("Player Forward Direction: " + playerForward);
 
         if (OVRInput.Get(OVRInput.Button.One))
         {
+            print("Ran OVR Input Button One");
             leftDot = Vector3.Dot(leftHandVelocity, playerForward);
             rightDot = Vector3.Dot(rightHandVelocity, playerForward);
         }
 
         else
         {
+            print("Ran else for OVR Input Button One");
             leftDot = Vector3.Dot(leftHandVelocity, -playerForward);
             rightDot = Vector3.Dot(rightHandVelocity, -playerForward);
         }
@@ -65,6 +71,9 @@ public class SwimmingMovement : MonoBehaviour
         {
             totalForce += rightHandVelocity * swimForce;
         }
+
+        print("Total Force Vals: " + totalForce);
+
 
         // Apply force to the Rigidbody
         rb.AddForce(totalForce, ForceMode.Acceleration);
