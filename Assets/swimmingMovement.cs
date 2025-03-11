@@ -18,13 +18,23 @@ public class SwimmingMovement : MonoBehaviour
     private float leftDot;
     private float rightDot;
 
+    private AudioSource audioSource;
+    public AudioClip bubbleSound;
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         print("RigidBody: " + rb);
         rb.useGravity = false;
-    }
 
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.playOnAwake = false;
+        audioSource.loop = false;
+
+    }
     void FixedUpdate()
     {
 
@@ -61,15 +71,18 @@ public class SwimmingMovement : MonoBehaviour
         }
 
         Vector3 totalForce = Vector3.zero;
+        bool playedSound = false;
 
         // Only apply force if hands are moving backward (negative dot product)
         if (leftDot < -minStrokeVelocity)
         {
             totalForce += leftHandVelocity * swimForce;
+            playedSound = true;
         }
         if (rightDot < -minStrokeVelocity)
         {
             totalForce += rightHandVelocity * swimForce;
+            playedSound = true;
         }
 
         print("Total Force Vals: " + totalForce);
@@ -81,6 +94,11 @@ public class SwimmingMovement : MonoBehaviour
 
         // Apply drag
         rb.linearVelocity *= drag;
+
+        if (playedSound && bubbleSound != null && !audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(bubbleSound);
+        }
 
         // Store last positions for the next frame
         lastHandPositionLeft = leftHandPosition;
