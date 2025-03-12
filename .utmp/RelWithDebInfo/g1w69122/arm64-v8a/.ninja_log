@@ -1,0 +1,10 @@
+# ninja log v5
+16	900	7634658151416435	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	99f2524d8afa2691
+28	915	7634658151532458	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	8c1e2a9199b1bccf
+7	916	7634658151542560	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	f4508826959c6489
+34	930	7634658151701028	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	57409595dca21608
+40	985	7634658152287166	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	806024484c37bf39
+1	1040	7634658152826100	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	fed536a442f69e38
+22	1184	7634658154270860	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	9ea5485d4fb1dc08
+11	1315	7634658155550883	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e7860cda588ee3fd
+1315	1441	7634658156855795	C:/Users/14154/Documents/GitHub/VR-Aquarium/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/g1w69122/obj/arm64-v8a/libgame.so	75ce3d5961f6b098
