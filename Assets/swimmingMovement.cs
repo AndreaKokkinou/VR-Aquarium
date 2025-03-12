@@ -70,6 +70,12 @@ public class SwimmingMovement : MonoBehaviour
             rightDot = Vector3.Dot(rightHandVelocity, -playerForward);
         }
 
+        if (OVRInput.Get(OVRInput.Button.Two))
+        {
+            leftDot = Vector3.Dot(Vector3.zero, playerForward);
+            rightDot = Vector3.Dot(Vector3.zero, playerForward);
+        }
+
         Vector3 totalForce = Vector3.zero;
         bool playedSound = false;
 

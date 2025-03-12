@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Capsule
   - Cube
+  - PetFish
+  - PlayerHand
   layers:
   - Default
   - TransparentFX
